@@ -94,6 +94,23 @@ namespace CommandPattern.RebindKeys
                     redoCommands.Push(lastCommand);
                 }
             }
+            //Undo with Q
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (undoCommands.Count < 2)
+                {
+                    Debug.Log("Can't undo twice because we are back where we started or there is only one undo command");
+                }
+                else
+                {
+                    Command lastCommand = undoCommands.Pop();
+                    lastCommand.Undo();
+                    redoCommands.Push(lastCommand);
+                    lastCommand = undoCommands.Pop();
+                    lastCommand.Undo();
+                    redoCommands.Push(lastCommand);
+                }
+            }
             //Redo with r
             else if (Input.GetKeyDown(KeyCode.R))
             {
@@ -108,6 +125,23 @@ namespace CommandPattern.RebindKeys
                     nextCommand.Execute();
 
                     //Add to undo if we want to undo the redo
+                    undoCommands.Push(nextCommand);
+                }
+            }
+            //Redo twice
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (redoCommands.Count < 2)
+                {
+                    Debug.Log("Can't redo twice because we are at the end or there is only one left");
+                }
+                else
+                {
+                    Command nextCommand = redoCommands.Pop();
+                    nextCommand.Execute();
+                    undoCommands.Push(nextCommand);
+                    nextCommand = redoCommands.Pop();
+                    nextCommand.Execute();
                     undoCommands.Push(nextCommand);
                 }
             }
