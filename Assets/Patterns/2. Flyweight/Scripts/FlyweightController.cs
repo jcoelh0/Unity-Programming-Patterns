@@ -12,20 +12,20 @@ namespace Flyweight
         private List<Heavy> heavyObjects = new List<Heavy>();
 
         private List<Flyweight> flyweightObjects = new List<Flyweight>();
-
+        
 
         void Start()
         {
-            int numberOfObjects = 1000000;
+            int numberOfObjects = 10;
 
 
             //Generate Heavy objects that doesn't share any data
-            for (int i = 0; i < numberOfObjects; i++)
+            /* for (int i = 0; i < numberOfObjects; i++)
             {
                 Heavy newHeavy = new Heavy();
 
                 heavyObjects.Add(newHeavy);
-            }
+            } */
 
 
             //Generate Flyweight objects
@@ -33,12 +33,12 @@ namespace Flyweight
             //Generate the data that's being shared among all objects
             //Data data = new Data();
 
-            //for (int i = 0; i < numberOfObjects; i++)
-            //{
-            //    Flyweight newFlyweight = new Flyweight(data);
+            for (int i = 0; i < numberOfObjects; i++)
+            {
+                Flyweight newFlyweight = new Flyweight(GameObject.CreatePrimitive(PrimitiveType.Cube));
 
-            //    flyweightObjects.Add(newFlyweight);
-            //}
+                flyweightObjects.Add(newFlyweight);
+            }
         }
     }
 }
